@@ -1,0 +1,26 @@
+Package: popDyn
+Title: popDyn
+Version: 0.1.0
+Date: 2025-11-05
+Authors@R: 
+    	c(
+	person(given = "Nicholas",
+             family = "Grunloh",
+             role = c("aut", "cre"),
+             email = "grunloh@soe.ucsc.edu")
+	)
+Description: An encapsulated object-oriented implementation of fisheries population dynamics models using python-like R6 classes. 
+License: LGPL (>= 2.1)
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports: 	
+	GA,
+	R6,
+	GGally,
+	mvtnorm,
+	deSolve
+	
+Depends: 
+	R (>= 2.10)
