@@ -69,12 +69,10 @@ optimize = function(    data,
                 self$iterate()	
 		#check for pathological series
 		if( any(is.na(self$N)) ){ return(NA) }
-		if( any(is.na(self$B)) ){ return(NA) }
 		if( any(!self$N>0) ){ return(NA) }
-		if( any(!self$B>0) ){ return(NA) }
 		#if( self$N[1]==0 ){ return(NA) }
 		#profile maximization of log(q)
-		if( fitQ ){ self$lq=mean(log(data)-log(self$B)) }
+		if( fitQ ){ self$lq=mean(log(data)-log(self$N)) }
                 #evaluate likelihood
                 like = private$dLikes[[self$model$observation]](self, data) 
                 return( -sum(like) )
@@ -129,7 +127,7 @@ optimize = function(    data,
 				#profile maximization of log(q)
 				if( fitQ ){
 					self$iterate()
-					self$lq=mean(log(data)-log(self$B)) #N)) 
+					self$lq=mean(log(data)-log(self$N)) 
 				}
 				                
                                 #optim
@@ -150,7 +148,7 @@ optimize = function(    data,
 					#profile maximization of log(q)
 					if( fitQ ){ 
 						self$iterate()
-						self$lq=mean(log(data)-log(self$B))  #$N)) 
+						self$lq=mean(log(data)-log(self$N)) 
 					}
                                 }
                                 

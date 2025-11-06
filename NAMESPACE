@@ -1,6 +1,9 @@
 # Export all names
 exportPattern(".")
 # From Notes
-importFrom("R6", "deSolve")
-#importFrom("stats", "aggregate")
-#importFrom("utils", "glob2rx", "read.csv", "write.csv", "write.table")
+importFrom("GA", "ga")
+importFrom("R6", "R6Class")
+importFrom("GGally", "print_if_interactive", "ggpairs")
+importFrom("ggplot2", "ggsave")
+importFrom("mvtnorm", "rmvnorm")
+importFrom("deSolve", "ode", "dede")
