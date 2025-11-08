@@ -23,8 +23,8 @@ makeTransparent = function(someColor, alpha=100){
 
 #' A function to print
 #'
-#' @param ins  
-#' @param outs 
+#' @param ins  ins
+#' @param outs outs
 printSelf = function(ins, outs=c()){
         #
         n = 5
@@ -55,10 +55,10 @@ printSelf = function(ins, outs=c()){
 
 #' A function to plot the mean of the dynamics
 #'
-#' @param col   
-#' @param alpha 
-#' @param lwd   
-#' @param add
+#' @param col   col
+#' @param alpha alpha
+#' @param lwd   lwd
+#' @param add   add
 plotMean = function(col='black', alpha=100, lwd=3, add=F){
         #arguments passed directly to plotting functions
 
@@ -80,8 +80,8 @@ plotMean = function(col='black', alpha=100, lwd=3, add=F){
 #' A function to plot uncertainty bands 
 #'
 #' @param prob  Size of the uncertainty bands as defined as posterior probability
-#' @param col   
-#' @param alpha 
+#' @param col   col
+#' @param alpha alpha
 plotBand = function(prob=0.95, col='black', alpha=100){
         #arguments passed directly to plotting functions
 

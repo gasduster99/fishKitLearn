@@ -1,6 +1,6 @@
-# Export all names
-#exportPattern(".")
-exportPattern("ddClass0.1.1.r", "prodClass0.1.1.r")
+#EXPORT
+export(ddModel)
+export(prodModel)
 # From Notes
 importFrom("GA", "ga")
 importFrom("R6", "R6Class")
@@ -8,3 +8,7 @@ importFrom("GGally", "print_if_interactive", "ggpairs")
 importFrom("ggplot2", "ggsave")
 importFrom("mvtnorm", "rmvnorm")
 importFrom("deSolve", "ode", "dede")
+#
+importFrom("grDevices", "col2rgb", "rgb")
+importFrom("graphics", "lines", "polygon")
+importFrom("stats", "optim")

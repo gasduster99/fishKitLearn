@@ -2,13 +2,8 @@
 % Please edit documentation in R/22_prodClass0.1.1.r
 \name{prodModel}
 \alias{prodModel}
-\title{The main production modeling class definition}
-\value{
-an initializer for the prodModel class
-}
+\title{ProdModel}
 \description{
-The main production modeling class definition
-
 The main production modeling class definition
 }
 \section{Public fields}{

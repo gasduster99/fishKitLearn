@@ -18,13 +18,15 @@ plotQuan(
 \arguments{
 \item{quan}{a quantity to plot given as a function}
 
-\item{col}{}
+\item{col}{col}
 
-\item{alpha}{}
+\item{alpha}{alpha}
 
-\item{lwd}{}
+\item{lwd}{lwd}
 
-\item{add}{}
+\item{add}{add}
+
+\item{...}{...}
 }
 \description{
 A function for internal use to plot an abitratry transformation of model paratmeters thru time

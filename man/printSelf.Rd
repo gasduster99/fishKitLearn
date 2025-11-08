@@ -9,9 +9,9 @@ printSelf(ins, outs = c())
 printSelf(ins, outs = c())
 }
 \arguments{
-\item{ins}{}
+\item{ins}{ins}
 
-\item{outs}{}
+\item{outs}{outs}
 }
 \description{
 A function for internal use to print

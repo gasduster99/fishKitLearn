@@ -12,9 +12,9 @@
 #CLASS
 #
 
-#' The main production modeling class definition
+#' @title ProdModel
 #'
-#' @return an initializer for the prodModel class
+#' @description The main production modeling class definition
 #'
 #' @export
 prodModel = R6::R6Class("ProdModel", lock_objects=FALSE,
@@ -112,7 +112,7 @@ prodModel = R6::R6Class("ProdModel", lock_objects=FALSE,
         		capture.output( self$N <- deSolve::ode(self$N0, self$time, private$dNdt, parms=NULL, method=method)[,2], file="/dev/null" )
 		},
 		
-		                #' @description A function to optimize model parameter given the data provided
+		#' @description A function to optimize model parameter given the data provided
                 #'
                 #' @param data     A vector of data used to fit specified model.
                 #' @param parNames A vector of strings matching the names of the parameters to be optimized
@@ -141,7 +141,7 @@ prodModel = R6::R6Class("ProdModel", lock_objects=FALSE,
 				"save", "load", "printer"
 			))
 		},
-		                #' @description A function to plot the mean of the dynamics
+		#' @description A function to plot the mean of the dynamics
                 #' @param col   A color given however R colors are given
                 #' @param alpha An alpha level between 0 and 255
                 #' @param lwd   Line width

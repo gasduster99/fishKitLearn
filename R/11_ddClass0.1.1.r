@@ -13,9 +13,9 @@
 #CLASS
 #
 
-#' @description The main delay differential modeling class definition
+#' @title DDmodel
 #'
-#' @return an initializer for the ddModel class
+#' @description The main delay differential modeling class definition
 #'
 #' @export
 ddModel = R6::R6Class("DDModel", lock_objects=FALSE,

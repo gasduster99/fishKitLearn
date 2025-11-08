@@ -11,9 +11,9 @@ plotBand(prob = 0.95, col = "black", alpha = 100)
 \arguments{
 \item{prob}{Size of the uncertainty bands as defined as posterior probability}
 
-\item{col}{}
+\item{col}{col}
 
-\item{alpha}{}
+\item{alpha}{alpha}
 }
 \description{
 A function for internal use to plot uncertainty bands

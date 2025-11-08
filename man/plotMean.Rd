@@ -9,13 +9,13 @@ plotMean(col = "black", alpha = 100, lwd = 3, add = F)
 plotMean(col = "black", alpha = 100, lwd = 3, add = F)
 }
 \arguments{
-\item{col}{}
+\item{col}{col}
 
-\item{alpha}{}
+\item{alpha}{alpha}
 
-\item{lwd}{}
+\item{lwd}{lwd}
 
-\item{add}{}
+\item{add}{add}
 }
 \description{
 A function for internal use to plot the mean of the dynamics
