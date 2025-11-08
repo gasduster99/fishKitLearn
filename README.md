@@ -1,2 +1,4 @@
-# popDyn
-Encapsulated object oriented implementation of fisheries population dynamics models using python-like R6 classes.
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# Plenty of time to Document when your dead
