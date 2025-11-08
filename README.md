@@ -62,7 +62,7 @@ following in an R shell:
 
 # Delay Differential Models
 
-## Schnute-Deriso Delay Differential Model \[1\](<https://fisheries-2023.sites.olt.ubc.ca/files/2020/06/1Continuous-time-Schnute-Deriso-model-Final.pdf>)
+## Schnute-Deriso Delay Differential Model \[1\]
 
 ``` 
 ```
@@ -71,6 +71,7 @@ following in an R shell:
 
 ### Shiny Plot
 
-1.  Walters, The Continuous Time Schnute-Deriso Delaydifference Model
+1.  [Walters, The Continuous Time Schnute-Deriso Delaydifference Model
     for Age-Structured Population Dynamics, with Example Application to
-    the Peru Anchoveta Stock.
+    the Peru Anchoveta
+    Stock.](https://fisheries-2023.sites.olt.ubc.ca/files/2020/06/1Continuous-time-Schnute-Deriso-model-Final.pdf)

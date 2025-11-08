@@ -77,7 +77,7 @@ fitPT$plotBand(col="blue")
 
 # Delay Differential Models
 
-## Schnute-Deriso Delay Differential Model ^[Walters, The Continuous Time Schnute-Deriso Delaydifference Model for Age-Structured Population Dynamics, with Example Application to the Peru Anchoveta Stock.](https://fisheries-2023.sites.olt.ubc.ca/files/2020/06/1Continuous-time-Schnute-Deriso-model-Final.pdf) 
+## Schnute-Deriso Delay Differential Model ^[[Walters, The Continuous Time Schnute-Deriso Delaydifference Model for Age-Structured Population Dynamics, with Example Application to the Peru Anchoveta Stock.](https://fisheries-2023.sites.olt.ubc.ca/files/2020/06/1Continuous-time-Schnute-Deriso-model-Final.pdf)]
 
 ```
 ```
