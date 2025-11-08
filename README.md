@@ -62,7 +62,7 @@ following in an R shell:
 
 # Delay Differential Models
 
-## Schnute-Deriso Delay Differential Model \[1\]
+## Schnute-Deriso Delay Differential Model \[1\](<https://fisheries-2023.sites.olt.ubc.ca/files/2020/06/1Continuous-time-Schnute-Deriso-model-Final.pdf>)
 
 ``` 
 ```
