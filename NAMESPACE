@@ -1,10 +1,12 @@
 #EXPORT
 export(ddModel)
 export(prodModel)
-export(schnuteProdModel)
+export(schnuteDDMod)
+export(schnuteProdMod)
 # From Notes
 importFrom("GA", "ga")
 importFrom("R6", "R6Class")
+importFrom("Ryacas", "ysym", "as_r", "with_value")
 importFrom("GGally", "print_if_interactive", "ggpairs")
 importFrom("ggplot2", "ggsave")
 importFrom("mvtnorm", "rmvnorm")
