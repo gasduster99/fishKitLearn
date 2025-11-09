@@ -11,16 +11,39 @@ following in an R shell:
 
 ## Simple Production Model
 
-### Schaefer Model Example
+### Automatic Schnute prodModel Provided
 
-    #data
+    #A default Schnute model configuration is provided in the package
+    schnuteModel$printSelf()
+    
+    #Plot
+    schnuteModel$plotMean()
+    
+    #Update with your own data
     cpue  = c(1.78, 1.31, 0.91, 0.96, 0.88, 0.90, 0.87, 0.72, 0.57, 0.45, 0.42, 0.42, 0.49, 0.43, 0.40, 0.45, 0.55, 0.53, 0.58, 0.64, 0.66, 0.65, 0.63)
     catch = c(94, 212, 195, 383, 320, 402, 366, 606, 378, 319, 309, 389, 277, 254, 170, 97, 91, 177, 216, 229, 211, 231, 223)
-    TT = length(cpue)
+    TT = length(catch)
+    #
+    schnuteModel$time = 1:TT
+    schnuteModel$catch = catch
     
+    #optimize parameters
+    opt = schnuteModel$optimize(cpue,
+                  c('lsdo'    , 'lalpha', 'lbeta'   ),
+            lower   = c(log(0.001), log(0.1), log(1000) ),
+            upper   = c(log(0.3)  , 0       , log(10000)),
+            cov     = T
+    )
+    
+    #Update Plot
+    schnuteModel$plotMean(add=T, col='blue')
+    schnuteModel$plotBand(col='blue')
+
+### Example of Manual Schaefer Model Instantiation
+
     #define Schaefer model ODE 
     #log productivity parameterization improves optimization.
-    dNdt = function(t, N, lalpha, lbeta, gamma, catch){
+    dNdtSchaefer = function(t, N, lalpha, lbeta, catch){
             #linearly interpolate catches
             ft = floor(t)
             q  = (t-ft)
@@ -29,7 +52,7 @@ following in an R shell:
             C = q*Cu + (1-q)*Cl
             if(q==0){ C=Cl }
             #
-            R = exp(lalpha)*N/(gamma-1)*(1-(N/exp(lbeta))^(gamma-1))
+            R = exp(lalpha)*N*(1-(N/exp(lbeta)))
             out = R - C 
             #
             return( list(out) )
@@ -37,7 +60,7 @@ following in an R shell:
     
     #initialize prodModel class
     schaeferModel = prodModel$new(
-        dNdt=dNdt, N0Funk=function(lbeta){exp(lbeta)},  #Dynamics 
+        dNdt=dNdtSchaefer, N0Funk=function(lbeta){1/exp(lbeta)},    #Dynamics 
         time=1:TT, catch=catch, #Time Varying Givens
         lalpha=-1, lbeta=8, #Productivity Parameters
         lq=log(0.0005), lsdo=-2.1176758 #Nuisance Parameters
@@ -58,18 +81,19 @@ following in an R shell:
     fitPT$plotMean(add=T, col="blue")
     fitPT$plotBand(col="blue")
 
-### Preloaded Schnute prodModel
-
 ## Delay Differential Models
 
-### Schnute-Deriso Delay Differential Model \[1\]
+### Automatic Schnute-Deriso Delay Differential Model \[1\]
 
 ``` 
 ```
 
-### Preloaded Schnute ddModel
-
 #### Shiny Plot
+
+### Manual BH ddModel configuration
+
+``` 
+```
 
 ## Bibliography
 
