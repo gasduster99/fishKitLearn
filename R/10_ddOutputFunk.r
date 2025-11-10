@@ -152,4 +152,172 @@ plotRS = function(m=10^4, sample=F, save=F){
         if(sample){ return(sam) }
 }
 
-#NOTE: maybe I'll add the shiney app here later
+#
+#SHINY
+#
+
+##
+#ui = shinydashboard::dashboardPage(
+#        shinydashboard::dashboardHeader(),
+#        shinydashboard::dashboardSidebar(
+#                #Base Model NOTE: need to figure out how to update sliders to the new selected model
+#                #varSelectInput("who", "Base Model", whoMight, selected=startWho),
+#
+#                ##Contrast
+#                #sliderInput("sliderChi", "chi", min=0, max=1, step=0.05, value=1),
+#                #Growth & Maturity
+#                shiny::sliderInput("sliderAS","aS", min=0.1, max=10., step=0.1, value=self$aS),
+#                shiny::sliderInput("sliderKappa","kappa", min=0.1, max=5, step=0.1, value=self$kappa),
+#                #Recruitment
+#                shiny::sliderInput("sliderAlpha", "alpha", min=self$M+0.1, max=exp(self$lalpha)*3, step=0.05, value=exp(self$lalpha)),
+#                shiny::sliderInput("sliderBeta" , "beta" , min=0, max=exp(self$lbeta)*1.5, step=10^(floor(log10(exp(self$lbeta)))-1), value=exp(self$lbeta)),
+#                shiny::sliderInput("sliderGamma", "gamma", min=-2, max=2, step=0.10001, value=self$gamma)
+#
+#        ),
+#        dashboardBody(
+#                shiny::fluidRow(column(12, shiny::plotOutput('rowOne'))),
+#                shiny::fluidRow(column(12, shiny::plotOutput('rowTwo'))),
+#                shiny::fluidRow(column(12, shiny::plotOutput('rowThree'))),
+#                shiny::fluidRow(column(12, shiny::plotOutput('rowFour'))),
+#                shiny::fluidRow(column(12, shiny::plotOutput('rowFive')))
+#        )
+#)
+#
+##
+#server = function(input, output, session){
+#        #
+#        reactiveDat = shiny::reactive({
+#		
+#                ##
+#                #if(input$who!=dat$whoAmI){
+#                #       whoNew = sprintf("%s/%s", path, as.character(input$who))
+#                #       dat = readRDS(whoNew)
+#                #       dat$whoAmI = whoNew 
+#                #}
+#		
+#                ##Contrast
+#                #con = input$sliderChi
+#                #Growth
+#                self$aS = input$sliderAS
+#                self$kappa = input$sliderKappa
+#                #Recruitment
+#                self$alpha = input$sliderAlpha
+#                self$lalpha= log(input$sliderAlpha)
+#                self$beta  = input$sliderBeta
+#                self$lbeta = log(input$sliderBeta)
+#                self$gamma = input$sliderGamma
+#		
+#                #
+#                ww = vbGrow(self$aS, self$kappa, self$WW, self$a0) #WW*(1-exp(-kappa*a0))
+#                self$FMsy = FMsy(self$M, self$kappa, ww, self$WW, exp(self$lalpha), exp(self$lbeta), self$gamma)
+#                self$xi   = rbind(self$xi, self$FMsy/self$M)
+#                self$zeta = rbind(self$zeta, getZeta(self$FMsy, self$M, self$kappa, ww, self$WW, exp(self$lalpha), exp(self$lbeta), self$gamma))
+#                #dat$catch = fContrast(con)
+#                #
+#                self$iterate()
+#		
+#                #return
+#                self
+#        })
+#        #
+#        output$rowOne = shiny::renderPlot({
+#                #       
+#                dat = reactiveDat()
+#                layout(t(1:2))
+#                dat$plotQuan( function(B){B}, main="Biomass", ylim=c(0,max(dat$B)), xlab="Time", ylab="Biomass")
+#                dat$plotQuan( function(N){N}, main="Numbers", ylim=c(0,max(dat$N)), xlab="Time", ylab="Numbers")
+#        })
+#        #
+#        output$rowTwo = shiny::renderPlot({
+#                #
+#                dat = reactiveDat()
+#                #
+#                layout(t(1:2))
+#                ##
+#                #curve(SRR(x, dat), 0, 3*dat$B0, lwd=3, xlab="Biomass", ylab="Recruitment", main="Stock-Recruitment", n=1000)
+#                #abline(0, dat$M, col='red')
+#                #
+#                ww = vbGrow(dat$aS, dat$kappa, dat$WW, dat$a0)
+#                BMsy = BBar(dat$FMsy, dat$M, dat$kappa, ww, dat$WW, exp(dat$lalpha), exp(dat$lbeta), dat$gamma)
+#                g = function(x){BBar(x, dat$M, dat$kappa, ww, dat$WW, exp(dat$lalpha), exp(dat$lbeta), dat$gamma)}
+#                g = Vectorize(g, 'x')
+#                maxF = uniroot(g, c(dat$FMsy, exp(dat$lalpha)))$root
+#                #print(maxF)
+#                FFs = seq(0, maxF, length.out=1000)
+#                #f = function(x){surplus(x, dat)/surplus(BMsy, dat)*BMsy*dat$FMsy}
+#                #curve(f(x), 0, dat$B0, lwd=3, xlab="Biomass", ylab="Equilibrium Surplus Biomass", main="Yield Curve", n=1000)
+#                plot(g(FFs), FFs*g(FFs), type='l', lwd=3, xlab="Biomass", ylab="Equilibrium Surplus Biomass", main="Yield Curve")
+#                segments(BMsy, 0, BMsy, BMsy*dat$FMsy)
+#                points(BMsy, BMsy*dat$FMsy, pch=19)
+#                #abline(0, dat$FMsy)
+#                #curve(BBar(dat$FMsy, dat$M, dat$kappa, ww, dat$WW, exp(dat$lalpha), exp(dat$lbeta), dat$gamma))
+#                #rug( BBar(dat$FMsy, dat$M, dat$kappa, ww, dat$WW, exp(dat$lalpha), exp(dat$lbeta), dat$gamma), lwd=3 )
+#                #rug( BBar(0, dat$M, dat$kappa, ww, dat$WW, exp(dat$lalpha), exp(dat$lbeta), dat$gamma), lwd=3 )
+#                #abline(h=BBar(dat$FMsy, dat$M, dat$kappa, ww, dat$WW, exp(dat$lalpha), exp(dat$lbeta), dat$gamma)*dat$FMsy)
+#                #
+#                curve(vbGrow(x, dat$kappa, dat$WW, dat$a0), 0, 15, lwd=3, xlab="Age", ylab="Biomass", main="VB Growth", ylim=c(0, dat$WW))
+#                segments(dat$aS, 0, dat$aS, ww)
+#                segments(0, ww, dat$aS, ww)
+#                points(dat$aS, ww, pch=19)
+#        })
+#        #
+#        output$rowThree = shiny::renderPlot({
+#                #       
+#                dat = reactiveDat()
+#                #layout(cbind(c(1,2), 3))
+#                #
+#                #ww = vbGrow(dat$aS, dat$kappa, dat$WW, dat$a0) #WW*(1-exp(-kappa*a0))
+#                #dat$FMsy = FMsy(dat$M, dat$kappa, ww, dat$WW, exp(dat$lalpha), exp(dat$lbeta), dat$gamma)
+#                #
+#                #par(mar=c(4,5,2,3))
+#                #dat$plotQuan( function(catch, FMsy){catch*FMsy}, main="Fishing", ylim=c(0,1.5), xlab="Time", ylab="F")
+#                #dat$plotQuan( function(B, catch, FMsy){B*catch*FMsy}, ylim=c(0,max(dat$B*dat$catch*dat$FMsy)*1.1), xlab="Time", ylab="Catch") 
+#                #par(mar=c(5,5,5,3))
+#                #
+#                layout(t(1:2))
+#                #
+#                ww = vbGrow(dat$aS, dat$kappa, dat$WW, dat$a0)
+#                #
+#                curve(SRR(x, dat), 0, 3*dat$B0, lwd=3, xlab="Biomass", ylab="Recruitment #s", main="Stock-Recruitment", n=1000)
+#                abline(0, dat$M*(dat$M+dat$kappa)/dat$kappa/dat$WW/(1+dat$M*ww/dat$kappa/dat$WW), col='red')
+#                #abline(v=dat$B0)
+#                segments(dat$B0, 0, dat$B0, SRR(dat$B0, dat))
+#                #segments(0, SRR(dat$B0, dat), dat$B0, SRR(dat$B0, dat))
+#                points(dat$B0, SRR(dat$B0, dat), pch=19)
+#                #
+#                dat$plotQuan( function(B, N){B/N}, main="Average Size", ylim=c(0,max(dat$B/dat$N)), xlab="Time", ylab="Biomass Per Individual")
+#        })
+#        #
+#        output$rowFour = shiny::renderPlot({
+#                #
+#                dat = reactiveDat()
+#                #
+#                layout(t(1:2))
+#                dat$plotQuan( function(catch, FMsy){catch*FMsy}, main="Fishing", ylim=c(0,max(dat$catch*dat$FMsy)), xlab="Time", ylab="F")
+#                dat$plotQuan( function(B, catch, FMsy){B*catch*FMsy}, ylim=c(0,max(dat$B*dat$catch*dat$FMsy)*1.1), xlab="Time", ylab="Biomass", main="Catch")
+#        })
+#        #
+#        output$rowFive = shiny::renderPlot({
+#                #
+#                dat = reactiveDat()
+#                #
+#                howManyRP = length(dat$xi)
+#                howManyGrey = min(howManyRP, 50)
+#                greys = rev(81-round(logseq(80, 1, howManyGrey))) #seq(60, 2, -1)
+#                nWhite = max(howManyRP-howManyGrey+1, 0)
+#                #
+#                plot(dat$xi, dat$zeta, pch=19, col=c(rep("white", nWhite), sprintf("grey%d",greys), "black"), xlab="Fmsy/M", ylab="Bmsy/B0", main="Reference Points")
+#                points(dat$xi[howManyRP], dat$zeta[howManyRP], pch=19, col='black')
+#                points(dat$xi[howManyRP], dat$zeta[howManyRP], col='red')
+#        })
+#}
+#
+##' A function for internal use to launch a shiny app from self
+##'
+##' @param host An optional argument specifying the ip address, as a sting, where to host the app.
+##' @param port An optional argument specifying the port, as an integer, fopr accessing the host.
+#launchShinyApp = function(host="0.0.0.0", port=5050){
+#	runApp(shinyApp(ui, server), host=host, port=port)	
+#}
+
+

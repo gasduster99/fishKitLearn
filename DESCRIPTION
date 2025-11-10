@@ -24,6 +24,8 @@ Imports:
 	ggplot2,
 	mvtnorm,
 	deSolve,
-	rootSolve	
+	rootSolve,
+	shiny,
+	shinydashboard	
 Depends: 
 	R (>= 4.0.0)

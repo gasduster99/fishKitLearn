@@ -4,7 +4,7 @@ library(devtools)
 
 ##make a .Rbuildignore
 #use_build_ignore(c('drivers', 'sppCompQuick.pdf', 'sppCompQuick.tex', 'buildSelf.r'))
-use_build_ignore(c('buildSelf.r'))
+use_build_ignore(c('buildSelf.r', 'shiny.png'))
 #compiles the Roxygen documentation to R package doumentation.
 document()
 install()
