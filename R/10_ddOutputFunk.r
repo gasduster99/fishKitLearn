@@ -311,13 +311,16 @@ plotRS = function(m=10^4, sample=F, save=F){
 #                points(dat$xi[howManyRP], dat$zeta[howManyRP], col='red')
 #        })
 #}
-#
-##' A function for internal use to launch a shiny app from self
-##'
-##' @param host An optional argument specifying the ip address, as a sting, where to host the app.
-##' @param port An optional argument specifying the port, as an integer, fopr accessing the host.
-#launchShinyApp = function(host="0.0.0.0", port=5050){
-#	runApp(shinyApp(ui, server), host=host, port=port)	
-#}
+
+#' A function for internal use to launch a shiny app from self
+#'
+#' @param host An optional argument specifying the ip address, as a sting, where to host the app.
+#' @param port An optional argument specifying the port, as an integer, fopr accessing the host.
+launchShinyApp = function(host="0.0.0.0", port=5050){
+	#
+	if( is.function(self$UIFunk) ){ self$UI=self$UIFunk() }
+	#
+	runApp(shinyApp(self$UI, server), host=host, port=port)	
+}
 
 

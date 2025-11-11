@@ -70,6 +70,7 @@ ddModel = R6::R6Class("DDModel", lock_objects=FALSE,
 					derivs = NA,
 					N0Funk = NA,
 					B0Funk = NA,
+					UIFunk = NA,
 					...
 		){	
 			#misc variable digestion
@@ -92,7 +93,13 @@ ddModel = R6::R6Class("DDModel", lock_objects=FALSE,
 			if( is.function(B0Funk) ){ 	
 				private$N0_classify(B0Funk)
 				B0 = self$B0Funk()
-			}		
+			}
+			#UI
+			if( is.function(UIFunk) ){
+                                private$N0_classify(UIFunk)
+                                UI = self$UIFunk()
+                        }
+		
 	
 			#preallocate N
 			self$N0 = N0
@@ -192,11 +199,11 @@ ddModel = R6::R6Class("DDModel", lock_objects=FALSE,
 		#' @param sample A boolean to indicate if samples should be returned
 		#' @param save   A boolean to indicate if samples should be saved 
 		plotRS 	 = plotRS,
-		##' @description A function for internal use to launch a shiny app from self
-		##'
-		##' @param host An optional argument specifying the ip address, as a sting, where to host the app.
-		##' @param port An optional argument specifying the port, as an integer, fopr accessing the host.
-		#launchShinyApp = launchShinyApp,
+		#' @description A function for internal use to launch a shiny app from self
+		#'
+		#' @param host An optional argument specifying the ip address, as a sting, where to host the app.
+		#' @param port An optional argument specifying the port, as an integer, fopr accessing the host.
+		launchShinyApp = launchShinyApp,
 		
 		#' @description    A function to save the ddModel class as an rds file.
                 #' @param fileName A string defining the name and path of the file to be saved. It should probably end with the .rds extension.
