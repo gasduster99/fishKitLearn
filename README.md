@@ -5,7 +5,9 @@
 
 To install the latest version of the `fishKitLearn` package you can run
 the following in an R shell:
-`install.packages("devtools") #if required devtools::install_github("gasduster99/fishKitLearn")`
+
+    install.packages("devtools") #if required
+    devtools::install_github("gasduster99/fishKitLearn")
 
 ## Simple Production Model
 
@@ -41,30 +43,36 @@ default instance of the `prodModel` class. You can see the default state
 of the model by running the following, to print the model to your R
 shell and see the mean response value.
 
-\`\` \#A default Schnute model configuration is provided in the package
-schnuteProdModel\$printSelf()
+    #A default Schnute model configuration is provided in the package
+    schnuteProdModel$printSelf()
 
-\#Plot schnuteProdModel\$plotMean() \`\`
+    #Plot
+    schnuteProdModel$plotMean()
 
 To parameterize this model to your species of interest, you must add
 your own catch data and time settings. At which point, the model is
 ready to optimize whichever parameters you would like from the given
 index data.
 
-\`\` \#Update with your own data, here is Nimibian Hake for example.
-cpue = c(1.78, 1.31, 0.91, 0.96, 0.88, 0.90, 0.87, 0.72, 0.57, 0.45,
-0.42, 0.42, 0.49, 0.43, 0.40, 0.45, 0.55, 0.53, 0.58, 0.64, 0.66, 0.65,
-0.63) catch = c(94, 212, 195, 383, 320, 402, 366, 606, 378, 319, 309,
-389, 277, 254, 170, 97, 91, 177, 216, 229, 211, 231, 223) TT =
-length(catch) \# schnuteProdModel$time = 1:TT
-schnuteProdModel$catch = catch
+    #Update with your own data, here is Nimibian Hake for example.
+    cpue  = c(1.78, 1.31, 0.91, 0.96, 0.88, 0.90, 0.87, 0.72, 0.57, 0.45, 0.42, 0.42, 0.49, 0.43, 0.40, 0.45, 0.55, 0.53, 0.58, 0.64, 0.66, 0.65, 0.63)
+    catch = c(94, 212, 195, 383, 320, 402, 366, 606, 378, 319, 309, 389, 277, 254, 170, 97, 91, 177, 216, 229, 211, 231, 223)
+    TT = length(catch)
+    #
+    schnuteProdModel$time = 1:TT
+    schnuteProdModel$catch = catch
 
-\#optimize parameters opt = schnuteProdModel\$optimize(cpue, c(‘lsdo’ ,
-‘lalpha’, ‘lbeta’ ), lower = c(log(0.001), log(0.1), log(1000) ), upper
-= c(log(0.3) , 0 , log(10000)), cov = T )
+    #optimize parameters
+    opt = schnuteProdModel$optimize(cpue,
+                  c('lsdo'    , 'lalpha', 'lbeta'   ),
+            lower   = c(log(0.001), log(0.1), log(1000) ),
+            upper   = c(log(0.3)  , 0       , log(10000)),
+            cov     = T
+    )
 
-\#Update Plot schnuteProdModel$plotMean(add=T, col='blue')
-schnuteProdModel$plotBand(col=‘blue’) \`\`
+    #Update Plot
+    schnuteProdModel$plotMean(add=T, col='blue')
+    schnuteProdModel$plotBand(col='blue')
 
 At this time it is only possible to fit to a single index. However you
 can optimize any parameter that you can see in the `schnuteProdModel`
