@@ -17,16 +17,33 @@ knitr::opts_chunk$set(
 
 To install the latest version of the `fishKitLearn` package you can run the
 following in an R shell:
-```
+``
 install.packages("devtools") #if required
 devtools::install_github("gasduster99/fishKitLearn")
-```
+``
 
 ## Simple Production Model
 
 ### Automatic Schnute prodModel Provided
 
-```
+`fishKitLearn` ships with several automatically confingured models. The 
+`prodModel` class is a platform for specifying generic production models, 
+as will be described in the next section about manually configuring 
+models. That said, a Schnute production model is also automatically 
+configured and provided by default. 
+
+This model includes three parameter Schnute production^[[cite](link.pdf)], natural mortality, 
+and fishing mortality as follows.
+
+\begin{align*}
+&I_t = q B_t e^\epsilon ~~~ \epsilon\sim N(0, \sigma^2)\\
+&\frac{dB}{dt} = P_{S}(B;[\alpha, \beta]) -(M+F)B\\~\\
+&P_{S}(B;[\alpha, \beta, \gamma]) = \alpha B(1-\beta\gamma B)^{\frac{1}{\gamma}}
+\end{align*}
+
+Logistic (Schaefer) Model `\gamma=1`, Ricker Model `\gamma\rightarrow0`, Beverton-Holt `\gamma=-1`
+
+``
 #A default Schnute model configuration is provided in the package
 schnuteProdModel$printSelf()
 
@@ -52,8 +69,7 @@ opt = schnuteProdModel$optimize(cpue,
 #Update Plot
 schnuteProdModel$plotMean(add=T, col='blue')
 schnuteProdModel$plotBand(col='blue')
-
-```
+``
 
 ### Example of Manual Schaefer Model Instantiation
 
