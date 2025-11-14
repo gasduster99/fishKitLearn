@@ -11,7 +11,7 @@ the following in an R shell:
 
 ## Simple Production Model
 
-### Automatic Schnute prodModel Provided
+### Automatic Schnute `prodModel`
 
 `fishKitLearn` ships with several automatically confingured models. The
 `prodModel` class is a platform for specifying generic production
@@ -40,8 +40,8 @@ this model and how it estimates reference points see [^2].
 
 This Schnute production model is initialized to the `schnuteProdMod`
 default instance of the `prodModel` class. You can see the default state
-of the model by running the following, to print the model to your R
-shell and see the mean response value.
+of the model by running the following. This code prints the model state
+to your R shell and plots the mean response value.
 
     #A default Schnute model configuration is provided in the package
     schnuteProdMod$printSelf()
@@ -70,15 +70,24 @@ index data.
             cov     = T
     )
 
+    #
+    schnuteProdMod$printSelf()
     #Update Plot
     schnuteProdMod$plotMean(add=T, col='blue')
     schnuteProdMod$plotBand(col='blue')
 
 At this time it is only possible to fit to a single index. However you
 can optimize any parameter that you can see in the `schnuteProdMod`
-instance by simply adding its name, and optimization bounds above.
+instance by simply adding its name to the optimization and adding
+bounds.
 
 ### Example of Manual Schaefer Model Instantiation
+
+To manually specify a production model, you must specify a function for
+integrating the ODE that defines your model. Further you should provide
+a function that defines the virgin population state in terms of the
+model parameters or constants. Below you can see a typical Schaefer
+model specified using the `prodModel` class.
 
     #define Schaefer model ODE 
     #log productivity parameterization improves optimization.
@@ -122,7 +131,21 @@ instance by simply adding its name, and optimization bounds above.
 
 ## Delay Differential Models
 
+More complex models can be fit in `fishKitLearn` by using the `ddModel`
+class that is designed to work with delay differential models (DDM).
+Manual specification of DDMs follow the same general motif as shown
+above, except that lag values and lagged derivatives are specified with
+the `lagvalue` and `lagderiv` functions as would be used with `dede`
+from the `deSolve` package.
+
 ### Automatic Schnute-Deriso Delay Differential Model [^3]
+
+The Schnute-Deriso DDM as specified by Walters[^4] is automatically
+provided here in the `schnuteDDMod` object. In this package the model is
+constructed with the three parameter Schnute Stock Recruitment
+relationship so as to allow the same versatile access to Ricker, BH and
+Logistic recruitment model through $\gamma$. For more information about
+this model and how it estimates reference points see [^5].
 
     #A default Schnute model configuration is provided in the package
     schnuteDDModel$printSelf()
@@ -144,7 +167,11 @@ instance by simply adding its name, and optimization bounds above.
 
 #### Shiny App
 
-    schnuteDDModel$shiny()
+A shiny app is provided here to visualize the most common metric one may
+be interested for this model. The shiny app allows the user to perform
+retime sensativities to model parameters.
+
+    schnuteDDModel$launchShinyApp()
 
 <figure>
 <img
@@ -173,3 +200,12 @@ alt="Example Shiny App" />
     for Age-Structured Population Dynamics, with Example Application to
     the Peru Anchoveta
     Stock.](https://fisheries-2023.sites.olt.ubc.ca/files/2020/06/1Continuous-time-Schnute-Deriso-model-Final.pdf)
+
+[^4]: [Walters, The Continuous Time Schnute-Deriso Delaydifference Model
+    for Age-Structured Population Dynamics, with Example Application to
+    the Peru Anchoveta
+    Stock.](https://fisheries-2023.sites.olt.ubc.ca/files/2020/06/1Continuous-time-Schnute-Deriso-model-Final.pdf)
+
+[^5]: [Grunloh, N. (2024) A Metamodeling Approach for Bias Estimation of
+    Biological Reference Points. (Doctoral dissertation, University of
+    California Santa Cruz).](https://escholarship.org/uc/item/1th4n7kd)
