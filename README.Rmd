@@ -65,7 +65,6 @@ To parameterize this model to your species of interest, you must add your own
 catch data and time settings. At which point, the model is ready to optimize 
 whichever parameters you would like from the given index data. 
 
-
 ```
 #namibianHakeCpue  = c(1.78, 1.31, 0.91, 0.96, 0.88, 0.90, 0.87, 0.72, 0.57, 0.45, 0.42, 0.42, 0.49, 0.43, 0.40, 0.45, 0.55, 0.53, 0.58, 0.64, 0.66, 0.65, 0.63)
 #namibianHakeCatch = c(94, 212, 195, 383, 320, 402, 366, 606, 378, 319, 309, 389, 277, 254, 170, 97, 91, 177, 216, 229, 211, 231, 223)
@@ -74,19 +73,22 @@ whichever parameters you would like from the given index data.
 TT = length(namibianHakeCatch)
 schnuteProdModel$time = 1:TT
 schnuteProdModel$catch = namibianHakeCatch
-schnuteProdModel$gamma = 1 #specify the schaefer model
+#specify the special case schaefer model 
+schnuteProdModel$gamma = 1 
+schnuteProdModel$M = 0
 
 #optimize parameters
 opt = schnuteProdMod$optimize(cpue,
         	  c('lsdo'    , 'lalpha', 'lbeta'   ),
         lower   = c(log(0.001), log(0.1), log(1000) ),
-        upper   = c(log(0.3)  , 0       , log(10000)),
-        cov     = T
+        upper   = c(log(0.3)  , 0       , log(10000))
 )
 
 #
 schnuteProdMod$printSelf()
+
 #Update Plot
+plot(schnuteProdModel$time, namibianHakeCpue)
 schnuteProdMod$plotMean(add=T, col='blue')
 schnuteProdMod$plotBand(col='blue')
 ```
@@ -127,19 +129,17 @@ schaeferModel = prodModel$new(
 )
 
 #optimize
-optS = schaeferModel$optimize(cpue,
+optS = schaeferModel$optimize(namibianHakeCpue,
         c('lsdo', 'lalpha', 'lbeta'),
         lower   = c(log(0.001), log(0.1), log(1000)),
         upper   = c(log(0.3), 0, log(10000)),
-        gaBoost = T,
         cov     = T,
        	fitQ 	= T
 )
 
 #plot
-plot(schaeferModel$time, cpue)
-fitPT$plotMean(add=T, col="blue")
-fitPT$plotBand(col="blue")
+schaeferModel$plotMean(add=T, col="blue")
+SchaeferModel$plotBand(col="blue")
 ```
 
 ## Delay Differential Models
@@ -160,11 +160,12 @@ In this package the model is constructed with the three parameter Schnute Stock 
 #A default Schnute model configuration is provided in the package
 schnuteDDModel$printSelf()
 
-#Plot
-schnuteDDModel$plotMean()
+#specify the special case schaefer model but now with growth
+schnuteDDModel$gamma = 1 
+schnuteDDModel$M = 0
 
 #Optimize Parameters
-optDD = schnuteDDModel$optimize(cpue,
+optDD = schnuteDDModel$optimize(namibianHakeCpue,
               c('lsdo'    , 'lalpha', 'lbeta'   ),
         lower   = c(log(0.001), log(0.1), log(1000) ),
         upper   = c(log(0.3)  , 0       , log(10000)),
@@ -172,8 +173,8 @@ optDD = schnuteDDModel$optimize(cpue,
 )
 
 #Update Plot
-schnuteDDModel$plotMean(add=T, col='blue')
-schnuteDDModel$plotBand(col='blue')
+schnuteDDModel$plotMean(add=T, col='green')
+schnuteDDModel$plotBand(col='green')
 ```
 
 #### Shiny App
