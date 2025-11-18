@@ -31,12 +31,13 @@ $$
 $$
 
 This is a versatile model that allows for the specification of many
-common models by fixing $\gamma$. The BH and Logistic (Schaefer) Models
-arise when $\gamma$ is fixed to -1 or 1 respectively. The Ricker model
-is a limiting case as $\gamma\rightarrow0$. For $\gamma<-1$ a family of
-strictly increasing Cushing-like curves arise, culminating in linear
-production as $\gamma\rightarrow-\infty$. More Information about this
-model and how it estimates reference points see[^2].
+common models by fixing $\gamma$. The Beverton-Holt (BH) and Logistic
+(Schaefer) Models arise when $\gamma$ is fixed to -1 or 1 respectively.
+The Ricker model is a limiting case as $\gamma\rightarrow0$. For
+$\gamma<-1$ a family of strictly increasing Cushing-like curves arise,
+culminating in linear production as $\gamma\rightarrow-\infty$. More
+Information about this model and how it estimates reference points
+see[^2].
 
 This Schnute production model is initialized to the `schnuteProdMod`
 default instance of the `prodModel` class. You can see the default state
