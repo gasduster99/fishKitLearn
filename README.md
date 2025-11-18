@@ -142,7 +142,7 @@ from the `deSolve` package.
 
 The Schnute-Deriso DDM as specified by Walters[^3] is automatically
 provided here in the `schnuteDDMod` object. In this package the model is
-constructed with the three parameter Schnute Stock Recruitment
+constructed with the three parameter Schnute stock recruitment
 relationship so as to allow the same versatile access to Ricker, BH and
 Logistic recruitment model through $\gamma$. For more information about
 this model and how it estimates reference points see
