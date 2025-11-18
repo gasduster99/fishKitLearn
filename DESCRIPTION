@@ -24,7 +24,9 @@ Imports:
 	ggplot2,
 	mvtnorm,
 	deSolve,
+	parallel,
 	rootSolve,
+	doParallel,
 	shiny,
 	shinydashboard	
 Depends: 

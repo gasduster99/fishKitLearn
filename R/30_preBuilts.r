@@ -31,16 +31,16 @@ dNdtSchnute = function(t, P, lalpha, lbeta, gamma, M, catch){
         Cu = catch[ft+1]
         C = q*Cu + (1-q)*Cl
         if(q==0){ C=Cl }
-        #
-        if( gamma==-1 ){ Fmsy = sqrt(exp(lalpha)*M)-M
-        } else {
-                #
-                FUpper = abs(exp(lalpha)-M)
-                Fmsy = uniroot.all(function(ff){ a(gamma, ff, M)-exp(lalpha) }, c(0, FUpper))[1]
-        }
-        #
+        ##
+        #if( gamma==-1 ){ Fmsy = sqrt(exp(lalpha)*M)-M
+        #} else {
+        #        #
+        #        FUpper = abs(exp(lalpha)-M)
+        #        Fmsy = uniroot.all(function(ff){ a(gamma, ff, M)-exp(lalpha) }, c(0, FUpper))[1]
+        #}
+        ##
         R = exp(lalpha)*P*(1-exp(lbeta)*gamma*P)^(1/gamma)
-        out = R - (M+Fmsy*C)*P
+        out = R - M*P - C #(M+Fmsy*C)*P
         #
         return( list(out) )
 }
@@ -92,10 +92,12 @@ FMsySchnute = function(alpha, gamma, M){
 schnuteProdMod = prodModel$new(
         dNdt=dNdtSchnute, N0Funk=function(lalpha, lbeta, gamma, M){PBarSchnute(exp(lalpha), exp(lbeta), gamma, 0, M)},  #Dynamics
         time=1:80, catch=rep(1, 80), M=0.2,	#Constants
-        lalpha=-1, lbeta=8, gamma=-1,	#Productivity Parameters
-        lq=log(0.0005), #, lsdo=-2.1176758	#Nuisance Parameters
-	alphaGiven=aSchnute, betaGiven=bSchnute,	#Productivity Given Functions
-	zetaGiven=zSchnute, NBar=PBarSchnute, FMsy=FMsySchnute	#RP Functions
+        lalpha=-0.95, lbeta=-7.880859, gamma=-1,     #Productivity Parameters
+        lq=-7.663133, lsdo=-2.116262
+	#lalpha=-1, lbeta=8, gamma=-1,	#Productivity Parameters
+        #lq=log(0.0005), #, lsdo=-2.1176758	#Nuisance Parameters
+	#alphaGiven=aSchnute, betaGiven=bSchnute,	#Productivity Given Functions
+	#zetaGiven=zSchnute, NBar=PBarSchnute, FMsy=FMsySchnute	#RP Functions
 )
 schnuteProdMod$iterate()
 
@@ -216,6 +218,8 @@ der = function(t, Y, lalpha, lbeta, gamma, aS, a0, WW, kappa, catch, B0){
         out = c(N=NA, B=NA)
         out[1] = R - (M+FF)*N
         out[2] = ww*R + kappa*(WW*N-B) - (M+FF)*B
+	#out[1] = R - M*N - C
+	#out[2] = ww*R + kappa*(WW*N-B) - M*B - C
         #
         return( list(out) )
 }
@@ -440,7 +444,7 @@ schnuteDDMod = ddModel$new( derivs=der,
         },
         time=1:80, catch=rep(1, 80), aS=aS, a0=a0, M=M, WW=WW, kappa=kappa,	#constants
         lalpha=lalpha, lbeta=lbetaBH, gamma=-1,	#parameters
-        lq=log(0.00049),	#nuisance parameters
+        lq=log(0.00049), lsdo=-2.116262, #nuisance parameters
         #other incidentals to carry along
 	UIFunk=makeUI
 )

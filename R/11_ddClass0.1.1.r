@@ -172,7 +172,8 @@ ddModel = R6::R6Class("DDModel", lock_objects=FALSE,
 			self$printer(ins, outs=c(
 				"iterate", "optimize", "model",	"prior", "like",
 				"plotQuan", "plotMean", "plotBand", "plotRS", 
-				"quan", "N0Funk", "B0Funk", "save", "load", "printer"
+				"quan", "N0Funk", "B0Funk", "save", "load", "printer",
+				"UIFunk", "launchShinyApp"
 			))
 		},
 		#' @description A function to plot an abitratry transformation of model paratmeters thru time

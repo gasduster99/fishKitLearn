@@ -10,7 +10,7 @@ document()
 install()
 #run the data-raw code. data-raw code should contain use_data() to export cleaned up data.
 #Rscript ./data-raw/inherents.r
-#source("./data-raw/inherents.r")
+source("./data-raw/namibianHake.r")
 #check the structure of your R package so far
 check()
 #edit README.rmd and this function builds the README.md

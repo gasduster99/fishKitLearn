@@ -66,26 +66,26 @@ catch data and time settings. At which point, the model is ready to optimize
 whichever parameters you would like from the given index data. 
 
 ```
-#Update with your own data
-TT = length(namibianHakeCatch)
-schnuteProdModel$time = 1:TT
-schnuteProdModel$catch = namibianHakeCatch
+#Update with your own data 
+schnuteProdMod$catch = namibianHakeCatch
+schnuteProdMod$time = 1:length(namibianHakeCatch)
 #specify the special case schaefer model 
-schnuteProdModel$gamma = 1 
-schnuteProdModel$M = 0
+schnuteProdMod$gamma = 1 
+schnuteProdMod$M = 0
 
-#optimize parameters
-opt = schnuteProdMod$optimize(cpue,
-        	  c('lsdo'    , 'lalpha', 'lbeta'   ),
-        lower   = c(log(0.001), log(0.1), log(1000) ),
-        upper   = c(log(0.3)  , 0       , log(10000))
+#optimize
+opt = schnuteProdMod$optimize(namibianHakeCpue,
+        c('lalpha', 'lbeta', 'lsdo'),
+        lower = c(-1.5, -10, -3), 
+        upper = c(-0.5, -5, -2),
+        cov   = T
 )
 
 #
 schnuteProdMod$printSelf()
 
 #Update Plot
-plot(schnuteProdModel$time, namibianHakeCpue)
+plot(schnuteProdMod$time, namibianHakeCpue)
 schnuteProdMod$plotMean(add=T, col='blue')
 schnuteProdMod$plotBand(col='blue')
 ```
@@ -93,6 +93,14 @@ schnuteProdMod$plotBand(col='blue')
 At this time it is only possible to fit to a single index. However you can optimize any parameter 
 that you can see in the `schnuteProdMod` instance by simply adding its name to the optimization 
 and adding bounds. 
+
+<!--
+#optimize parameters
+opt = schnuteProdMod$optimize(cpue,
+        	  c('lsdo'    , 'lalpha', 'lbeta'   ),
+        lower   = c(log(0.001), log(0.1), log(1000) ),
+        upper   = c(log(0.3)  , 0       , log(10000))
+)
 
 ### Example of Manual Schaefer Model Instantiation
 
@@ -138,7 +146,7 @@ optS = schaeferModel$optimize(namibianHakeCpue,
 schaeferModel$plotMean(add=T, col="blue")
 SchaeferModel$plotBand(col="blue")
 ```
-
+-->
 ## Delay Differential Models
 
 More complex models can be fit in `fishKitLearn` by using the `ddModel` class that 
@@ -152,27 +160,29 @@ In this package the model is constructed with the three parameter Schnute Stock 
  For more information about this model and how it estimates reference points see [[2]](https://escholarship.org/uc/item/1th4n7kd).
 <!--[Grunloh, N. (2024) A Metamodeling Approach for Bias Estimation of Biological Reference Points. (Doctoral dissertation, University of California Santa Cruz).](https://escholarship.org/uc/item/1th4n7kd)].-->
 
-
+<!--
 ```
 #A default Schnute model configuration is provided in the package
-schnuteDDModel$printSelf()
+schnuteDDMod$printSelf()
 
 #specify the special case schaefer model but now with growth
-schnuteDDModel$gamma = 1 
-schnuteDDModel$M = 0
+schnuteDDMod$gamma = 1 
+schnuteDDMod$M = 0
 
 #Optimize Parameters
-optDD = schnuteDDModel$optimize(namibianHakeCpue,
+optDD = schnuteDDMod$optimize(namibianHakeCpue,
               c('lsdo'    , 'lalpha', 'lbeta'   ),
         lower   = c(log(0.001), log(0.1), log(1000) ),
         upper   = c(log(0.3)  , 0       , log(10000)),
+	gaBoost = T, #global optimization by genetic algorithm
         cov     = T
 )
 
 #Update Plot
-schnuteDDModel$plotMean(add=T, col='green')
-schnuteDDModel$plotBand(col='green')
+schnuteDDMod$plotMean(add=T, col='green')
+schnuteDDMod$plotBand(col='green')
 ```
+-->
 
 #### Shiny App
 
