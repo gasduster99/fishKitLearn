@@ -13,7 +13,7 @@ The main production modeling class definition
 
 \item{\code{N0}}{a scalar initial condition for numbers/biomass}
 
-\item{\code{N0Funk}}{a function defining the equilibrium vigin numbers as a function of the productivity parameters}
+\item{\code{N0Funk}}{a function defining the equilibrium vigin numbers/biomass as a function of the productivity parameters}
 
 \item{\code{time}}{a vector of times for which to integrate the dynamics to}
 
@@ -114,7 +114,7 @@ Create a new instance of the ddModel class
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{N0}}{a scalar initial condition for numbers}
+\item{\code{N0}}{a scalar initial condition for numbers/biomass}
 
 \item{\code{time}}{a vector of times for which to integrate the dynamics to}
 
@@ -145,7 +145,7 @@ A function to integrate the dynamics equations over the times in 'time'
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-NULL B and N are updated interally.
+NULL N are updated interally.
 }
 }
 \if{html}{\out{<hr>}}

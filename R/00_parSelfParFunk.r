@@ -25,7 +25,7 @@ selfToPar = function(parNames){
 #'
 #' @param  parValues values of parameters given as named objects to be registered with self
 parToSelf = function(parValues){
-        #check is names exist
+        #check if names exist
 
         #
         parNames = names(parValues)

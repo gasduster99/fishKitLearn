@@ -129,7 +129,7 @@ optimize = function(    data,
 					self$iterate()
 					self$lq=mean(log(data)-log(self$N)) 
 				}
-				                
+				  
                                 #optim
                                 out[['optimOut']] = optim(
                                         par[1,],
@@ -185,11 +185,21 @@ optimize = function(    data,
                         i = i+1
                 }
         
-        } else{ 
-                #optim
+        } else{
+		#names(upper) = parNames
+		#names(lower) = parNames
+		#print( fun(lower) ) 
+		#self$printSelf()
+		#print( fun(private$selfToPar(parNames)) )
+		#self$printSelf()
+		#print( fun(upper) )
+		#self$printSelf()
+		#print(upper)
+                
+		#optim
                 out[['optimOut']] = optim(
                         private$selfToPar(parNames),
-                        fun,
+			fun,
                         lower = lower,
                         upper = upper,
                         hessian = cov,

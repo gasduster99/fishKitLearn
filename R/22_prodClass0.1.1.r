@@ -25,7 +25,7 @@ prodModel = R6::R6Class("ProdModel", lock_objects=FALSE,
 		N  = NA,
 		#' @field N0     a scalar initial condition for numbers/biomass
 		N0 = NA,
-		#' @field N0Funk a function defining the equilibrium vigin numbers as a function of the productivity parameters
+		#' @field N0Funk a function defining the equilibrium vigin numbers/biomass as a function of the productivity parameters
 		N0Funk = NA,
 
 		#TIME
@@ -49,7 +49,7 @@ prodModel = R6::R6Class("ProdModel", lock_objects=FALSE,
 		
 		#' @description Create a new instance of the ddModel class
                 #'
-                #' @param N0 a scalar initial condition for numbers
+                #' @param N0 a scalar initial condition for numbers/biomass
                 #' @param time a vector of times for which to integrate the dynamics to
                 #' @param dNdt a function that evaluates the delay differential equation that defines numbers/biomass dynamics.
                 #' @param N0Funk a function defining the equilibrium vigin numbers as a function of the productivity parameters
@@ -89,7 +89,7 @@ prodModel = R6::R6Class("ProdModel", lock_objects=FALSE,
                 #'
                 #' @param method an optional string specifing the integration method to be used by dede 
                 #'
-                #' @return NULL B and N are updated interally.
+                #' @return NULL N are updated interally.
 		iterate = function(method=self$ODE_method){
 			#method	: optionally update the ODE method to be handed to the ode function (default 'rk4')
 			#
