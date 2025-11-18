@@ -22,7 +22,13 @@ automatically configured and provided by default.
 This model uses a three parameter Schnute production[^1], natural
 mortality, and fishing mortality as follows:
 
-\$ \$
+$$
+\begin{align*}
+&I_t = q B_t e^\epsilon ~~~ \epsilon\sim N(0, \sigma^2)\\
+&\frac{dB}{dt} = P_{S}(B;[\alpha, \beta, \gamma]) -(M+F)B\\
+&P_{S}(B;[\alpha, \beta, \gamma]) = \alpha B(1-\beta\gamma B)^{\frac{1}{\gamma}}
+\end{align*}
+$$
 
 This is a versatile model that allows for the specification of many
 common models by fixing $\gamma$. The BH and Logistic (Schaefer) Models
